@@ -7,14 +7,15 @@ public class Plataforma {
        // p1.exibirDados();
 
         Jogos jogo1 = new Jogos("Free-fire", "Battle Royale");
-        Salas sala1 = new Salas(0, null, false, jogo1, 40, 0);
-       // jogo1.exibirDados();
+        Salas sala1 = new Salas(0, null, false, jogo1, 40, 0, 0);
+       jogo1.exibirDados();
         //sala1.exibirDados();
         
         
         sala1.inserirParticipante(20);
-        sala1.inserirParticipante(20);
-        
+        sala1.inserirParticipante(21);
+        sala1.removerParticipante();
+       
         sala1.exibirDados();
         
     }

@@ -7,8 +7,9 @@ public class Salas{
     private Jogos jogo;
     private int maxParticipantes;
     private int quantidadeDeParticipantes;
+    private int quantidadeEmEspera;
 
-    public Salas(int id_sala, String nomeSala, boolean status, Jogos jogo, int maxParticipantes, int quantidadeDeParticipantes){
+    public Salas(int id_sala, String nomeSala, boolean status, Jogos jogo, int maxParticipantes, int quantidadeDeParticipantes, int quantidadeEmEspera){
         this.id_sala = id_sala;
         this.nomeSala = nomeSala;
         this.status = status;
@@ -41,6 +42,7 @@ public class Salas{
     }
 
     public void setQuantidadeDeParticipantes(int quantidadeDeParticipantes) {
+        if(quantidadeDeParticipantes <= getMaxParticipantes())
         this.quantidadeDeParticipantes += quantidadeDeParticipantes;
     }
 
@@ -64,20 +66,41 @@ public class Salas{
         this.jogo = jogo;
     }
     
-     public int inserirParticipante(int adicionarParticipantesEntrada){
+    
+     public void inserirParticipante(int adicionarParticipantesEntrada) {
+        int espacoDisponivel = this.maxParticipantes - this.quantidadeDeParticipantes;
 
-        if(adicionarParticipantesEntrada > getMaxParticipantes()){
-            System.out.println("Sem espaço");
+        if (adicionarParticipantesEntrada <= espacoDisponivel) {
+            this.quantidadeDeParticipantes += adicionarParticipantesEntrada;
+            System.out.println(adicionarParticipantesEntrada + " participante(s) entrou(aram) direto.");
+        } else {
+            // Preenche o que resta de vagas e o resto vai para a espera
+            this.quantidadeDeParticipantes += espacoDisponivel;
+            int resto = adicionarParticipantesEntrada - espacoDisponivel;
+            this.quantidadeEmEspera += resto;
+            
+            System.out.println(espacoDisponivel + " entraram. " + resto + " ficaram na espera.");
         }
-        else{
-            setQuantidadeDeParticipantes(adicionarParticipantesEntrada);
-        }
-
-        return getQuantidadeDeParticipantes();
     }
+
+    public void removerParticipante() {
+        if (this.quantidadeDeParticipantes > 0) {
+            this.quantidadeDeParticipantes--;
+            System.out.println("Um participante saiu da sala.");
+
+            // Verifica se tem alguém na variável de espera
+            if (this.quantidadeEmEspera > 0) {
+                this.quantidadeEmEspera--;
+                this.quantidadeDeParticipantes++;
+                System.out.println("Uma vaga abriu e alguém da espera entrou automaticamente!");
+            }
+        } else {
+            System.out.println("A sala já está vazia.");
+        }
+    }
+
+
         
-
-
     public void exibirDados(){
         System.out.println("Id sala: "+this.getId_Sala());
         System.out.println("Nome da sala: "+this.getNomeSala());
