@@ -2,9 +2,9 @@ package Projeto;
 public class Jogadores {
     private String credencial;
     private Perfil perfil;
-    private boolean participa;
+    private Salas participa;
 
-    public Jogadores(String credencial, Perfil perfil, boolean participa){
+    public Jogadores(String credencial, Perfil perfil, Salas participa){
         this.credencial = credencial;
         this.perfil = perfil;
         this.participa = participa;
@@ -21,10 +21,10 @@ public class Jogadores {
         return perfil;
     }
 
-    public void setParticipa(boolean participa){
+    public void setParticipa(Salas participa){
         this.participa = participa;
     }
-    public boolean getParticipa(){
+    public Salas getParticipa(){
         return participa;
     }
 

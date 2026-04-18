@@ -9,13 +9,14 @@ public class Salas{
     private int quantidadeDeParticipantes;
     private int quantidadeEmEspera;
 
-    public Salas(int id_sala, String nomeSala, boolean status, Jogos jogo, int maxParticipantes, int quantidadeDeParticipantes, int quantidadeEmEspera){
+    public Salas(int id_sala, String nomeSala, boolean status, Jogos jogo, int maxParticipantes){
         this.id_sala = id_sala;
         this.nomeSala = nomeSala;
         this.status = status;
         this.jogo = jogo;
         this.maxParticipantes = maxParticipantes;
-        this.quantidadeDeParticipantes = quantidadeDeParticipantes;
+        this.quantidadeDeParticipantes = 0;
+        this.quantidadeEmEspera = 0;
     }
 
     public void setStatus(boolean status){
@@ -58,6 +59,14 @@ public class Salas{
         return maxParticipantes;
     }
 
+    public int getQuantidadeEmEspera() {
+        return quantidadeEmEspera;
+    }
+
+    public void setQuantidadeEmEspera(int quantidadeEmEspera) {
+        this.quantidadeEmEspera = quantidadeEmEspera;
+    }
+
     public Jogos getJogo(){
         return jogo;
     }
@@ -66,33 +75,39 @@ public class Salas{
         this.jogo = jogo;
     }
     
-    
-     public void inserirParticipante(int adicionarParticipantesEntrada) {
-        int espacoDisponivel = this.maxParticipantes - this.quantidadeDeParticipantes;
-
-        if (adicionarParticipantesEntrada <= espacoDisponivel) {
-            this.quantidadeDeParticipantes += adicionarParticipantesEntrada;
-            System.out.println(adicionarParticipantesEntrada + " participante(s) entrou(aram) direto.");
-        } else {
-            // Preenche o que resta de vagas e o resto vai para a espera
-            this.quantidadeDeParticipantes += espacoDisponivel;
-            int resto = adicionarParticipantesEntrada - espacoDisponivel;
-            this.quantidadeEmEspera += resto;
-            
-            System.out.println(espacoDisponivel + " entraram. " + resto + " ficaram na espera.");
-        }
+    public void abrirSala(){
+        this.setStatus(true);
     }
+
+    public void fecharSala(){
+        this.setStatus(false);
+        }
+
+        public void inserirParticipante() {
+
+    if (!getStatus()) {
+        System.out.println("Sala: " + getNomeSala() + " fechada, não é permitida entrada de jogadores.");
+        return;
+    }
+
+    if (this.quantidadeDeParticipantes < this.maxParticipantes) {
+        this.quantidadeDeParticipantes++;
+        System.out.println("1 participante entrou na sala: " + getNomeSala());
+    } else {
+        this.quantidadeEmEspera++;
+        System.out.println("Sala: " + getNomeSala() + " cheia. Participante foi para a espera.");
+    }
+}
 
     public void removerParticipante() {
         if (this.quantidadeDeParticipantes > 0) {
             this.quantidadeDeParticipantes--;
-            System.out.println("Um participante saiu da sala.");
+            System.out.println("1 participante saiu da sala.");
 
-            // Verifica se tem alguém na variável de espera
             if (this.quantidadeEmEspera > 0) {
                 this.quantidadeEmEspera--;
                 this.quantidadeDeParticipantes++;
-                System.out.println("Uma vaga abriu e alguém da espera entrou automaticamente!");
+                System.out.println("1 vaga abriu e alguém da espera entrou automaticamente!");
             }
         } else {
             System.out.println("A sala já está vazia.");
@@ -102,11 +117,17 @@ public class Salas{
 
         
     public void exibirDados(){
+        System.out.println("-------------------------------------------------------------------------");
         System.out.println("Id sala: "+this.getId_Sala());
         System.out.println("Nome da sala: "+this.getNomeSala());
-        System.out.println("Status da sala: "+this.getStatus());
+        if(getStatus())
+            System.out.println("Sala aberta");
+        else
+            System.out.println("Sala fechada");
         System.out.println("Jogo: "+ jogo.getTitulo());
         System.out.println("Número máximo de participantes:  "+this.getMaxParticipantes());
         System.out.println("Quantidade atual de participantes: "+this.getQuantidadeDeParticipantes());
+        System.out.println("Quantidade na fila de espera: "+this.getQuantidadeEmEspera());
+        System.out.println("-------------------------------------------------------------------------");
     }
 }
