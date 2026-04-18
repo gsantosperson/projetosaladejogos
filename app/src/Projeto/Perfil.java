@@ -5,7 +5,6 @@ public class Perfil {
     private int ranking;
     private int conquistas;
     private int conta;
-    private Jogadores jogadores;
 
 public String getNomeJogador(){
     return this.nomeJogador;
@@ -38,8 +37,8 @@ public void setRanking(int ranking) {
     this.ranking = ranking;
 }
 
-public Perfil(String int ranking, int conquistas){
-    this.nomeJogador = nomeJogador;
+public Perfil(String nomeJoagdor,int ranking, int conquistas){
+    this.nomeJogador = nomeJoagdor;
     this.ranking = ranking;
     this.conquistas = conquistas;
 }

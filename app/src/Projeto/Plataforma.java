@@ -74,6 +74,8 @@ public class Plataforma {
     }
 
     void exibirDados(){
+        System.out.println("");
+        System.out.println("Plataforma "+this.getNomePlataforma());
         System.out.println("id: "+this.getId());
         System.out.println("Nome da plataforma "+this.getNomePlataforma());
         System.out.println("Quantidade de salas: "+this.getQuantadeDeSalas());

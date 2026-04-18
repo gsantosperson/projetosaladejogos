@@ -10,12 +10,11 @@ public class Salas{
     private int quantidadeDeParticipantes;
     private int quantidadeEmEspera;
 
-    public Salas(int id_sala, String nomeSala, boolean status, Jogos jogo,int maxParticipantes){
+    public Salas(int id_sala, String nomeSala, boolean status, Jogos jogo, int maxParticipantes){
         this.id_sala = id_sala;
         this.nomeSala = nomeSala;
         this.status = status;
         this.jogo = jogo;
-        
         this.maxParticipantes = maxParticipantes;
         this.jogadores = new Jogadores[maxParticipantes];
         this.quantidadeDeParticipantes = 0;
@@ -95,21 +94,22 @@ public class Salas{
         }
 
     public void inserirParticipante(Jogadores jogadores){
-        if (!getStatus()) {
-            System.out.println("Sala: " + getNomeSala() + " fechada, não é permitida entrada de jogadores.");
-            return;
-        }
 
-        if (this.quantidadeDeParticipantes < this.maxParticipantes) {
-            this.quantidadeDeParticipantes++;
-            System.out.println("1 participante entrou na sala: " + getNomeSala());
-            this.jogadores[quantidadeDeParticipantes] = jogadores;
-        } else {
-            this.quantidadeEmEspera++;
-            System.out.println("Sala: " + getNomeSala() + " cheia. Participante foi para a espera.");
-        }
+    if (!getStatus()) {
+        System.out.println("Sala: " + getNomeSala() + " fechada, não é permitida entrada de jogadores.");
+        return;
+    }
+
+    if (this.quantidadeDeParticipantes < this.maxParticipantes) {
+        this.jogadores[quantidadeDeParticipantes] = jogadores;
+        this.quantidadeDeParticipantes++;
+
+        System.out.println("1 participante entrou na sala: " + getNomeSala());
+    } else {
+        this.quantidadeEmEspera++;
+        System.out.println("Sala: " + getNomeSala() + " cheia. Participante foi para a espera.");
+    }
 }
-
     public void removerParticipante() {
         if (this.quantidadeDeParticipantes > 0) {
             this.quantidadeDeParticipantes--;
@@ -149,8 +149,10 @@ public class Salas{
         System.out.println("");
 
         for(int i = 0; i < quantidadeDeParticipantes; i++){
-            System.out.println("Nome: "+jogadores[i].getPerfil().exibirDados()); 
+            jogadores[i].exibirDados();
+            System.out.println("");
         }
+        
         System.out.println("");
     }
 }

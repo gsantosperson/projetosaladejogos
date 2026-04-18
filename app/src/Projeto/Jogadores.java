@@ -24,9 +24,14 @@ public class Jogadores {
 
     public void exibirDados(){
         System.out.println("Credencial: "+this.credencial);
-        System.out.println("Nome: "+this.perfil.getNomeJogador());
-        System.out.println("Conquistas: "+this.perfil.getConquistas());
-        System.out.println("Ranking: "+this.perfil.getConquistas());
+        if(this.perfil != null){
+            System.out.println("Nome: "+this.perfil.getNomeJogador());
+            System.out.println("Conquistas: "+this.perfil.getConquistas());
+            System.out.println("Ranking: "+this.perfil.getRanking());
+        }else{
+            System.err.println("Erro de perfil!");
+        }
+
     }
 
 }
