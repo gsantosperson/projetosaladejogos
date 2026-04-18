@@ -26,9 +26,11 @@ public class Jogos {
 
     }
 
+
     public void exibirDados(){
         System.out.println("Titulo do jogo: "+ this.getTitulo());
         System.out.println("Categoria do jogo: "+this.categoria);
+        System.out.println("--------------------------------------------------");
     }
 
 }

@@ -2,12 +2,10 @@ package Projeto;
 public class Jogadores {
     private String credencial;
     private Perfil perfil;
-    private Salas participa;
 
-    public Jogadores(String credencial, Perfil perfil, Salas participa){
+    public Jogadores(String credencial, Perfil perfil){
         this.credencial = credencial;
         this.perfil = perfil;
-        this.participa = participa;
     }
 
     public void setCredencial(String credencial){
@@ -17,15 +15,18 @@ public class Jogadores {
     public String getCredencial(){
         return credencial;
     }
+    public void setPerfil(Perfil perfil){
+        this.perfil = perfil;
+    }
     public Perfil getPerfil(){
         return perfil;
     }
 
-    public void setParticipa(Salas participa){
-        this.participa = participa;
-    }
-    public Salas getParticipa(){
-        return participa;
+    public void exibirDados(){
+        System.out.println("Credencial: "+this.credencial);
+        System.out.println("Nome: "+this.perfil.getNomeJogador());
+        System.out.println("Conquistas: "+this.perfil.getConquistas());
+        System.out.println("Ranking: "+this.perfil.getConquistas());
     }
 
 }

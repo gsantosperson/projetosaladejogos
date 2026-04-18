@@ -5,20 +5,31 @@ public class Salas{
     private String nomeSala;
     private boolean status;
     private Jogos jogo;
+    private Jogadores jogadores[];
     private int maxParticipantes;
     private int quantidadeDeParticipantes;
     private int quantidadeEmEspera;
 
-    public Salas(int id_sala, String nomeSala, boolean status, Jogos jogo, int maxParticipantes){
+    public Salas(int id_sala, String nomeSala, boolean status, Jogos jogo,int maxParticipantes){
         this.id_sala = id_sala;
         this.nomeSala = nomeSala;
         this.status = status;
         this.jogo = jogo;
+        
         this.maxParticipantes = maxParticipantes;
+        this.jogadores = new Jogadores[maxParticipantes];
         this.quantidadeDeParticipantes = 0;
         this.quantidadeEmEspera = 0;
     }
+    
+    public void setJogadores(Jogadores[] jogadores){
+        this.jogadores = jogadores;
+    }
 
+    public Jogadores[] getJogadores() {
+        return jogadores;
+    }
+    
     public void setStatus(boolean status){
         this.status = status;
     }
@@ -28,7 +39,7 @@ public class Salas{
     }
     
     public void setId_sala(int id_sala){
-        this.id_sala = id_sala;
+       this.id_sala = id_sala;
     }
 
     public int getId_Sala(){
@@ -83,20 +94,20 @@ public class Salas{
         this.setStatus(false);
         }
 
-        public void inserirParticipante() {
+    public void inserirParticipante(Jogadores jogadores){
+        if (!getStatus()) {
+            System.out.println("Sala: " + getNomeSala() + " fechada, não é permitida entrada de jogadores.");
+            return;
+        }
 
-    if (!getStatus()) {
-        System.out.println("Sala: " + getNomeSala() + " fechada, não é permitida entrada de jogadores.");
-        return;
-    }
-
-    if (this.quantidadeDeParticipantes < this.maxParticipantes) {
-        this.quantidadeDeParticipantes++;
-        System.out.println("1 participante entrou na sala: " + getNomeSala());
-    } else {
-        this.quantidadeEmEspera++;
-        System.out.println("Sala: " + getNomeSala() + " cheia. Participante foi para a espera.");
-    }
+        if (this.quantidadeDeParticipantes < this.maxParticipantes) {
+            this.quantidadeDeParticipantes++;
+            System.out.println("1 participante entrou na sala: " + getNomeSala());
+            this.jogadores[quantidadeDeParticipantes] = jogadores;
+        } else {
+            this.quantidadeEmEspera++;
+            System.out.println("Sala: " + getNomeSala() + " cheia. Participante foi para a espera.");
+        }
 }
 
     public void removerParticipante() {
@@ -117,17 +128,29 @@ public class Salas{
 
         
     public void exibirDados(){
-        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("");
         System.out.println("Id sala: "+this.getId_Sala());
         System.out.println("Nome da sala: "+this.getNomeSala());
         if(getStatus())
             System.out.println("Sala aberta");
         else
             System.out.println("Sala fechada");
-        System.out.println("Jogo: "+ jogo.getTitulo());
+        System.out.println("");
+        System.out.println("Informações do jogo da sala");
+        System.out.println("");
+        System.out.println("Título: "+ jogo.getTitulo());
+        System.out.println("Categoria: "+jogo.getCategoria());
+        System.out.println("");
         System.out.println("Número máximo de participantes:  "+this.getMaxParticipantes());
         System.out.println("Quantidade atual de participantes: "+this.getQuantidadeDeParticipantes());
         System.out.println("Quantidade na fila de espera: "+this.getQuantidadeEmEspera());
-        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("");
+        System.out.println("Participantes da sala: "+this.getNomeSala());
+        System.out.println("");
+
+        for(int i = 0; i < quantidadeDeParticipantes; i++){
+            System.out.println("Nome: "+jogadores[i].getPerfil().exibirDados()); 
+        }
+        System.out.println("");
     }
 }

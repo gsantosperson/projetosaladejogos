@@ -1,17 +1,25 @@
 package Projeto;
 
 public class Perfil {
-    private String nome;
+    private String nomeJogador;
     private int ranking;
     private int conquistas;
+    private int conta;
+    private Jogadores jogadores;
 
-
-public String getNome(){
-    return this.nome;
+public String getNomeJogador(){
+    return this.nomeJogador;
 }
 
-public void setNome(String nome) {
-    this.nome = nome;
+public void setNomeJogador(String nomeJogador) {
+    this.nomeJogador = nomeJogador;
+}
+public void setContas(int conta){
+    if(conta > 1){
+        System.out.println("Erro");
+    }else{
+        this.conta = conta;
+    }
 }
 
 public int getConquistas() {
@@ -30,14 +38,14 @@ public void setRanking(int ranking) {
     this.ranking = ranking;
 }
 
-public Perfil(String nome, int ranking, int conquistas){
-    this.nome = nome;
+public Perfil(String int ranking, int conquistas){
+    this.nomeJogador = nomeJogador;
     this.ranking = ranking;
     this.conquistas = conquistas;
 }
 
 public void exibirDados(){
-    System.out.println("Nome: " + this.getNome());
+    System.out.println("Nome: " + this.getNomeJogador());
     System.out.println("Ranking: "+this.getRanking());
     System.out.println("Conquistas: "+this.getConquistas());
 }
